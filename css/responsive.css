@@ -1,0 +1,118 @@
+@media screen and (min-width: 550px) {
+
+nav {
+  height: 70px;
+}
+
+nav h1 a {
+    font-size: 1.2em;
+    letter-spacing: 10px;
+  }
+
+  .filter-options {
+  	/* margin: 0; */
+  	/* padding-top: 5px; */
+    /* width: 100%; */
+    height: 110px;
+  	text-align: left;
+
+  	/* margin: 0; */
+  	/* padding: 5px; */
+  }
+  .filter-options h2 {
+  	background-color:  #3397DB;
+  	/* margin-top: 50px; */
+    color: white;
+    font-size: 1.4em;
+    font-weight: normal;
+    line-height: 1;
+    /* margin: 5px; */
+  }
+
+  .filter-options select {
+    background-color: white;
+  	color: black;
+    border: 1px solid #fff;
+    font-family: Arial,sans-serif;
+    font-size: 1.2em;
+    height: 40px;
+    margin-right: 10px;
+    width: 240px;
+    /* width: 40%; */
+  }
+
+
+#restaurants-list {
+  max-width: 100%;
+  /* border: 2px solid blue; */
+  justify-content: flex-start;
+  /* align-content: flex-start; */
+
+}
+
+#restaurants-list li {
+  /* margin: 10px; */
+  margin: 7px;
+  width: 250px;
+  /* height: 400px; */
+  height: 400px;
+  /* flex; */
+}
+
+#restaurants-list li a {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#footer {
+  font-size: 0.9em;
+  padding: 20px 10px;
+}
+
+#footer strong {
+  display: inline;
+}
+
+#restaurant-img {
+  width: 50%;
+  margin-bottom: 15px;
+  /* height: 500px; */
+}
+
+#restaurant-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#restaurant-address {
+  margin: 0;
+}
+
+#restaurant-hours-address {
+  
+  margin-left: 5%;
+  margin-bottom: 20px;
+  /* border: 2px solid green; */
+  order: 0;
+  width: 40%;
+  /* align-self: flex-end; */
+  /* height: 100px; */
+}
+
+#restaurant-hours {
+  /* border: 2px solid red; */
+  /* display: inline; */
+    height: 200px;
+
+
+}
+
+#restaurant-cuisine {
+  order: 1;
+}
+
+
+}
