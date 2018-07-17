@@ -77,6 +77,7 @@ nav h1 a {
 #restaurant-img {
   width: 50%;
   margin-bottom: 15px;
+  max-width: 500px;
   /* height: 500px; */
 }
 
@@ -88,11 +89,12 @@ nav h1 a {
 }
 
 #restaurant-address {
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 #restaurant-hours-address {
-  
+  font-size: 1.1em;
   margin-left: 5%;
   margin-bottom: 20px;
   /* border: 2px solid green; */
@@ -113,6 +115,16 @@ nav h1 a {
 #restaurant-cuisine {
   order: 1;
 }
+
+
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    width: 900px;
+    margin: 0 auto;
+    background-color: #eee;
+  }
 
 
 }
