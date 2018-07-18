@@ -226,6 +226,7 @@ nav h1 a {
 	-moz-border-radius-bottomright: 5%;
 	-webkit-border-bottom-right-radius: 5%;
 	width: 100%;
+	max-width: 520px;
 }
 #restaurant-address {
 	font-size: 12pt;

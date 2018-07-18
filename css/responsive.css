@@ -50,6 +50,10 @@
     bottom: 0;
   }
 
+  #restaurants-list li img {
+    width: 175px;
+  }
+
   #footer {
     font-size: 0.9em;
     padding: 20px 10px;
@@ -62,7 +66,6 @@
   #restaurant-img {
     width: 50%;
     margin-bottom: 15px;
-    max-width: 500px;
   }
 
   #restaurant-container {
@@ -117,6 +120,10 @@
 
   #breadcrumb {
     width: 50%;
+  }
+
+  #restaurants-list li img {
+    width: 175px;
   }
 
   #restaurant-container {
