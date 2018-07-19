@@ -15,6 +15,21 @@ body {
 	min-width: 290px;
 	width: 100%;
 }
+
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: #BF1722;
+	color: white;
+	padding: 8px;
+	z-index: 100;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
@@ -26,6 +41,7 @@ a {
 }
 a:hover, a:focus {
 	color: #3397db;
+	box-shadow: 0 0 15px #3397db;
 	text-decoration: none;
 }
 a img{
