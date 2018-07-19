@@ -4,13 +4,29 @@ let restaurants,
 var newMap
 var markers = []
 
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/serviceworker.js').then(function() {
+      console.log('service worker registration complete.');
+    }, function() {
+      console.log('service worker registration failure.');
+    });
+  } else {
+    console.log('service worker is not supported.');
+  }
+}
+
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  registerServiceWorker();
   initMap(); // added
+
   fetchNeighborhoods();
   fetchCuisines();
+
 });
 
 /**
@@ -162,7 +178,7 @@ createRestaurantHTML = (restaurant) => {
   image.className = 'restaurant-img';
   const imgPath = ImageHelper.getImageName(restaurant.photograph);
   image.src = imgPath + '_520w.jpg';
-  image.srcset = imgPath + '_175w.jpg 175w, ' + imgPath + '_520w.jpg 700w';
+  image.srcset = imgPath + '_175w.jpg 175w, ' + imgPath + '_520w.jpg 701w';
   image.sizes = '(min-width: 550px) 175px, 520px';
   image.alt = ImageHelper.getAltText(restaurant.photograph);
   li.append(image);
