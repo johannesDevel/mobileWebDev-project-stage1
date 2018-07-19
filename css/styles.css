@@ -12,7 +12,8 @@ body {
 	background-color: #fdfdfd;
 	margin: 0;
 	position:relative;
-	min-width: 250px;
+	min-width: 290px;
+	width: 100%;
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -75,7 +76,6 @@ nav h1 a {
 }
 #breadcrumb {
 	padding: 10px;
-	width: 100%;
 	list-style: none;
 	background-color: #eee;
 	font-size: 0.9em;
@@ -115,7 +115,6 @@ nav h1 a {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
 	padding: 5px 15px;
-	width: 100%;
 	height: 170px;
 	background-color: #3397DB;
 	text-align: center;
@@ -245,7 +244,6 @@ nav h1 a {
 	width: 100%;
 }
 #restaurant-container, #reviews-container {
-	border-bottom: 1px solid #d9d9d9;
 	padding: 0 15px;
 	display: flex;
 	flex-direction: column;

@@ -160,18 +160,11 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  console.log(image);
-  let imgPath = restaurant.photograph;
-  console.log(imgPath);
-  if (imgPath.length == 6) {
-    imgPath = '/img/' + imgPath.substr(0, 2);
-  }
-  else {
-    imgPath = '/img/' + imgPath.substr(0, 1);
-  }
-  image.srcset = imgPath + '_175w.jpg 175w, ' + imgPath + '.jpg 800w';
-  image.sizes = "(min-width: 550px) 175px, 550px";
+  const imgPath = ImageHelper.getImageName(restaurant.photograph);
+  image.src = imgPath + '_520w.jpg';
+  image.srcset = imgPath + '_175w.jpg 175w, ' + imgPath + '_520w.jpg 700w';
+  image.sizes = '(min-width: 550px) 175px, 520px';
+  image.alt = ImageHelper.getAltText(restaurant.photograph);
   li.append(image);
 
   const name = document.createElement('h1');
