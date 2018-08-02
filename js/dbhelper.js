@@ -11,7 +11,6 @@ class DBHelper {
     const port = 1337 // Change this to your server port
     return `http://localhost:${port}/restaurants`;
   }
-
   /**
   * Fetch all restaurants.
   */
@@ -32,12 +31,113 @@ class DBHelper {
     // function getResponses(data) {
     //   console.log(data);
     // }
+    //
+    // var dbPromise = idb.open('testdb', 4, function(upgradeDb) {
+    //   switch(upgradeDb.oldVersion) {
+    //     case 0:
+    //       var keyValStore = upgradeDb.createObjectStore('keyval');
+    //       keyValStore.put('world', 'hello');
+    //     case 1:
+    //       upgradeDb.createObjectStore('people', { keyPath: 'name'});
+    //     case 2:
+    //       var peopleStore = upgradeDb.transaction.objectStore('people');
+    //       peopleStore.createIndex('animal', 'favoriteAnimal');
+    //     case 3:
+    //       peopleStore = upgradeDb.transaction.objectStore('people');
+    //       peopleStore.createIndex('age', 'age');
+    //   }
+    // });
+
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('keyval');
+    //   var keyValStore = tx.objectStore('keyval');
+    //   return keyValStore.get('hello');
+    // }).then(function(val) {
+    //   console.log('The value of "hello" is: ', val);
+    // });
+    //
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('keyval', 'readwrite');
+    //   var keyValStore = tx.objectStore('keyval');
+    //   keyValStore.put('bar', 'foo');
+    //   return tx.complete;
+    // }).then(function() {
+    //   console.log('Added foo:bar to keyval');
+    // });
+    //
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('keyval', 'readwrite');
+    //   var keyValStore = tx.objectStore('keyval');
+    //   keyValStore.put('cat', 'favoriteAnimal');
+    //   return tx.complete;
+    // }).then(function() {
+    //   console.log('Added cat to keyVal');
+    // });
+    //
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('people', 'readwrite');
+    //   var peopleStore = tx.objectStore('people');
+    //
+    //   peopleStore.put({
+    //     name: 'Johannes',
+    //     age: 27,
+    //     favoriteAnimal: 'dog'
+    //   });
+    //
+    //   peopleStore.put({
+    //     name: 'Annamaria',
+    //     age: 25,
+    //     favoriteAnimal: 'cat'
+    //   });
+    //
+    //   peopleStore.put({
+    //     name: 'Max',
+    //     age: 33,
+    //     favoriteAnimal: 'turtle'
+    //   });
+    //   return tx.complete;
+    // }).then(function() {
+    //   console.log('Person added');
+    // });
+
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('people');
+    //   var peopleStore = tx.objectStore('people');
+    //   var animalIndex = peopleStore.index('animal');
+    //   return peopleStore.getAll();
+    // }).then(function(people) {
+    //   console.log('People: ', people);
+    // });
+    //
+    // dbPromise.then(function(db) {
+    //   var tx = db.transaction('people');
+    //   var peopleStore = tx.objectStore('people');
+    //   var ageIndex = peopleStore.index('age');
+    //
+    //   return ageIndex.openCursor();
+    // }).then(function logPerson(cursor) {
+    //   if (!cursor) return;
+    //   console.log('Cursored at: ', cursor.value.name);
+    //   return cursor.continue().then(logPerson);
+    // }).then(function() {
+    //   console.log('Done cursoring');
+    // });
+
 
 
     fetch(DBHelper.DATABASE_URL)
           .then((res) => res.json())
           .then((data) => {
               const restaurants = data;
+              console.log(restaurants);
+              // if (!db) return;
+              idbPromise.then(function(db) {
+              var tx = db.transaction('restaurants-reviews', 'readwrite');
+              var restarantsTable = tx.objectStore('restarants-reviews');
+              restarants.forEach(function(restaurant) {
+                restarantsTable.put(restaurant);
+              });
+            });
               callback(null,restaurants)
       });
 

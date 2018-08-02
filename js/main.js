@@ -3,6 +3,23 @@ neighborhoods,
 cuisines
 var newMap
 var markers = []
+var db
+
+
+
+
+/**
+* Fetch neighborhoods and cuisines as soon as the page is loaded.
+*/
+document.addEventListener('DOMContentLoaded', (event) => {
+  openDatabase();
+  registerServiceWorker();
+  initMap(); // added
+  fetchNeighborhoods();
+  fetchCuisines();
+
+});
+
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
@@ -16,17 +33,18 @@ function registerServiceWorker() {
   }
 }
 
+function openDatabase() {
+  if (!navigator.serviceWorker) {
+    return;
+  }
 
-/**
-* Fetch neighborhoods and cuisines as soon as the page is loaded.
-*/
-document.addEventListener('DOMContentLoaded', (event) => {
-  registerServiceWorker();
-  initMap(); // added
-  fetchNeighborhoods();
-  fetchCuisines();
+  var idbPromise = idb.open('restaurants-reviews', 1, function(upgradeDb) {
+    var restaurants = upgradeDb.createObjectStore('restarants-reviews', {
+      keyPath: 'id'
+    });
+  });
 
-});
+}
 
 /**
 * Fetch all neighborhoods and set their HTML.
