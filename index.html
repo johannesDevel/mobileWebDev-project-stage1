@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta name="Description" content="Overview over all restaurants">
+  <meta name="theme-color" content="#3397DB"/>
+  <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -24,11 +27,11 @@
     </section>
     <section>
       <div class="filter-options" tabindex="-1">
-        <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" tabindex="0" onchange="updateRestaurants()">
+        <label><h2>Filter Results</h2></label>
+        <select aria-label="select neighborhoods" id="neighborhoods-select" name="neighborhoods" tabindex="0" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" tabindex="0" onchange="updateRestaurants()">
+        <select aria-label="select cuisines" id="cuisines-select" name="cuisines" tabindex="0" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
