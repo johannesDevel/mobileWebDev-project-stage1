@@ -20,21 +20,7 @@ class DBHelper {
       .then((response) => response.json())
       .then((data) => {
         const restaurants = data;
-        console.log(restaurants);
-        const idbPromise = idb.open('restaurants-reviews', 1, function(upgradeDb) {
-          var restaurants = upgradeDb.createObjectStore('restaurants-reviews', {
-            keyPath: 'id'
-          });
-        });
-        idbPromise.then(function(db) {
-          if (!db) return;
-          var tx = db.transaction('restaurants-reviews', 'readwrite');
-          var rest = tx.objectStore('restaurants-reviews');
-          restaurants.forEach(function(restaurant) {
-            rest.put(restaurant);
-          });
-          return rest.getAll();
-        });
+        DBHelper.fillDatabase(restaurants);
         callback(null,restaurants)
       });
     }
@@ -49,6 +35,25 @@ class DBHelper {
         callback(null, restaurants);
       })
     }
+  }
+
+  static fillDatabase(restaurants) {
+    console.log("saving items to database:");
+    console.log(restaurants);
+    const idbPromise = idb.open('restaurants-reviews', 1, function(upgradeDb) {
+      var restaurants = upgradeDb.createObjectStore('restaurants-reviews', {
+        keyPath: 'id'
+      });
+    });
+    idbPromise.then(function(db) {
+      if (!db) return;
+      var tx = db.transaction('restaurants-reviews', 'readwrite');
+      var rest = tx.objectStore('restaurants-reviews');
+      restaurants.forEach(function(restaurant) {
+        rest.put(restaurant);
+      });
+      return rest.getAll();
+    });
   }
 
   /**

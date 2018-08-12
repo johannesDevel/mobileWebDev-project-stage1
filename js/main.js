@@ -11,7 +11,6 @@ var markers = []
 * Fetch neighborhoods and cuisines as soon as the page is loaded.
 */
 document.addEventListener('DOMContentLoaded', (event) => {
-  // openDatabase();
   registerServiceWorker();
   initMap(); // added
   fetchNeighborhoods();
@@ -31,17 +30,6 @@ function registerServiceWorker() {
     console.log('service worker is not supported.');
   }
 }
-
-// function openDatabase() {
-//   if (!navigator.serviceWorker) {
-//     return;
-//   }
-//   idbPromise = idb.open('restaurants-reviews', 1, function(upgradeDb) {
-//     var restaurants = upgradeDb.createObjectStore('restaurants-reviews', {
-//       keyPath: 'id'
-//     });
-//   });
-// }
 
 /**
 * Fetch all neighborhoods and set their HTML.
@@ -103,16 +91,16 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 */
 initMap = () => {
   self.newMap = L.map('map', {
-    center: [40.722216, -73.987501],
-    zoom: 12,
-    scrollWheelZoom: false
-  });
+        center: [40.722216, -73.987501],
+        zoom: 12,
+        scrollWheelZoom: false
+      });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
     mapboxToken: 'pk.eyJ1IjoiYWh4aWUiLCJhIjoiY2pqaGN4dmxrMGM3OTN2cmwwaG8zemVxdSJ9.B_5RlKDgcUmY4EEcvLndBQ',
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.streets'
   }).addTo(newMap);
 

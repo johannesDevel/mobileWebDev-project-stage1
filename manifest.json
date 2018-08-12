@@ -1,4 +1,4 @@
-{
+/* {
   "short_name": "Restaurants",
   "name": "Restaurants-Reviews",
   "icons": [
@@ -51,6 +51,106 @@
       "src": "/img/10.jpg",
       "type": "image/jpg",
       "sizes": "800x600"
+    },
+    {
+      "src": "/img/1_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/2_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/3_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/4_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/5_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/6_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/7_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/8_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/9_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/10_520w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/1_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/2_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/3_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/4_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/5_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/6_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/7_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/8_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/9_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/img/10_175w.jpg",
+      "type": "image/jpg",
+      "sizes": "800x600"
     }
   ],
   "start_url": "/",
@@ -58,4 +158,4 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#3397DB"
-}
+} */
