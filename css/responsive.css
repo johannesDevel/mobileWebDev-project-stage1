@@ -143,3 +143,14 @@
     background-color: #f3f3f3;
   }
 }
+
+#review-form-container input {
+	width: 300px;
+	height: 40px;
+}
+
+#review-form-container button {
+	margin-top: 10px;
+	width: 300px;
+	height: 40px;
+}

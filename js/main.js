@@ -212,6 +212,19 @@ createRestaurantHTML = (restaurant) => {
   return li
 }
 
+window.addEventListener('load', function() {
+  function updateOnlineStatus(event) {
+    var condition = navigator.onLine ? "online" : "offline";
+
+    console.log('Status is now: ' + condition);
+    if (condition === "online") {
+      DBHelper.sendOfflineReviews();
+    }
+  }
+  window.addEventListener('online',  updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+
 /**
 * Add markers for current restaurants to the map.
 */

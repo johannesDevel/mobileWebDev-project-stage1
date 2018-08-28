@@ -331,3 +331,24 @@ nav h1 a {
 #restaurant-hours td {
 	color: #666;
 }
+
+#review-form-container {
+	border: 2px solid red;
+	display: flex;
+	flex-direction: column;
+}
+
+#review-form-container div {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+#review-form-container input {
+	width: 97%;
+	height: 40px;
+}
+
+#review-form-container button {
+	margin-top: 10px;
+	width: 97%;
+	height: 40px;
+}

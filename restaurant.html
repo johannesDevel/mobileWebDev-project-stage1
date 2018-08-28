@@ -44,32 +44,37 @@
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
       <div id="restaurant-hours-address">
-      <p id="restaurant-address"></p>
-      <table id="restaurant-hours"></table>
-    </div>
+        <p id="restaurant-address"></p>
+        <table id="restaurant-hours"></table>
+      </div>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
       <!-- <form action="http://localhost:1337/reviews" method="post"> -->
-      <form id="review-form" onsubmit="sendReview(event)">
-        <div>
-          <label for="name">Username:</label>
-          <input type="text" id="name" name="name" />
-        </div>
-        <div>
-          <label for="rating">Rating:</label>
-          <input type="text" id="rating" name="rating" />
-        </div>
-        <div>
-          <label for="comments">Comments:</label>
-          <input type="text" id="comments" name="comments" />
-        </div>
-        <div class="button">
-          <button type="submit">Review Restaurant!</button>
-        </div>
 
+
+      <form id="review-form" onsubmit="sendReview(event)">
+        <div id="review-form-container">
+          <h2>Create new Review</h2>
+          <div>
+            <label for="name">Username:</label>
+            <input type="text" id="name" name="name" />
+          </div>
+          <div>
+            <label for="rating">Rating:</label>
+            <input type="text" id="rating" name="rating" />
+          </div>
+          <div>
+            <label for="comments">Comments:</label>
+            <input type="text" id="comments" name="comments" />
+          </div>
+          <div class="button">
+            <button type="submit">Review Restaurant!</button>
+          </div>
+        </div>
       </form>
+
 
       <ul id="reviews-list"></ul>
     </section>
