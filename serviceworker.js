@@ -36,3 +36,8 @@ self.addEventListener('fetch', function(event) {
       })
     );
 });
+
+self.addEventListener('online', function() {
+  console.log('You are now online!!');
+  DBHelper.sendOfflineReviews();
+});

@@ -51,11 +51,8 @@
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
-      <form action="http://localhost:1337/reviews" method="post">
-        <div>
-          <label for="restaurant_id">Restaurant-ID:</label>
-          <input type="text" id="restaurant_id" name="restaurant_id" />
-        </div>
+      <!-- <form action="http://localhost:1337/reviews" method="post"> -->
+      <form id="review-form" onsubmit="sendReview(event)">
         <div>
           <label for="name">Username:</label>
           <input type="text" id="name" name="name" />
@@ -69,7 +66,7 @@
           <input type="text" id="comments" name="comments" />
         </div>
         <div class="button">
-          <button type="submit">Reivew Restaurant!</button>
+          <button type="submit">Review Restaurant!</button>
         </div>
 
       </form>
