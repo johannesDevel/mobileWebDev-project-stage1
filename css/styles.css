@@ -333,7 +333,6 @@ nav h1 a {
 }
 
 #review-form-container {
-	border: 2px solid red;
 	display: flex;
 	flex-direction: column;
 }
@@ -351,4 +350,15 @@ nav h1 a {
 	margin-top: 10px;
 	width: 97%;
 	height: 40px;
+}
+
+#favorite-button-container {
+	width: 200px;
+	height: 40px;
+}
+
+#favorite-button {
+	width: 100%;
+	height: 40px;
+	background-color: orange;
 }

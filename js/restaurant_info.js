@@ -275,6 +275,25 @@ initMap = () => {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
 
+  document.getElementById("favorite-button").addEventListener("click", function() {
+    const notFav = "select as favorite";
+    const fav = "is Favorite";
+    const currentText = document.querySelector("#favorite-button").innerHTML;
+
+    if (currentText === fav) {
+      currentText = notFav;
+    } else {
+      currentText = fav;
+    }
+
+    favButton.innerHTML = "is Favorite";
+    const id = self.restaurant.id;
+    console.log("selected Restaurant " + id + " as favorite");
+
+
+  });
+
+
   window.addEventListener('load', function() {
     function updateOnlineStatus(event) {
       var condition = navigator.onLine ? "online" : "offline";

@@ -323,7 +323,10 @@ class DBHelper {
           referrer: "no-referrer", // no-referrer, *client
           body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
-        .then(response => response.json()); // parses response to JSON
+        .then(response => {
+          DBHelper.deleteOfflineReviews();
+          response.json();
+        }); // parses response to JSON
       }
     }
 
@@ -353,7 +356,10 @@ class DBHelper {
               referrer: "no-referrer", // no-referrer, *client
               body: JSON.stringify(review), // body data type must match "Content-Type" header
             })
-            .then(response => response.json()); // parses response to JSON
+            .then(response => {
+              DBHelper.deleteOfflineReviews();
+              response.json();
+            }); // parses response to JSON
           }
         });
         DBHelper.deleteOfflineReviews();
