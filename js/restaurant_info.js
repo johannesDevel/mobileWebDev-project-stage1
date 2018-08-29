@@ -2,6 +2,8 @@ let restaurant;
 let reviews;
 var newMap;
 let idbPromise;
+const notFav = "select as favorite";
+const fav = "is Favorite";
 
 /**
 * Initialize map as soon as the page is loaded.
@@ -113,6 +115,16 @@ initMap = () => {
     if (restaurant.operating_hours) {
       fillRestaurantHoursHTML();
     }
+
+    console.log("restaurant favorite status: " + restaurant.is_favorite);
+    if (self.restaurant.is_favorite) {
+        console.log("restaurant will be loaded as favorite");
+        document.getElementById("favorite-button").innerHTML = fav;
+    } else {
+        console.log("restaurant will be loaded not as favorite");
+        document.getElementById("favorite-button").innerHTML = notFav;
+    }
+
     // fill reviews
     fillReviewsHTML(restaurant.id);
   }
@@ -276,19 +288,20 @@ initMap = () => {
   }
 
   document.getElementById("favorite-button").addEventListener("click", function() {
-    const notFav = "select as favorite";
-    const fav = "is Favorite";
-    const currentText = document.querySelector("#favorite-button").innerHTML;
+    let favoriteStatus = self.restaurant.is_favorite;
+    console.log("favorite status before: " + favoriteStatus);
+    favoriteStatus = !favoriteStatus;
+    // DBHelper.sendFavorite(self.restaurant);
+    console.log("favorite status after: " + favoriteStatus);
 
-    if (currentText === fav) {
-      currentText = notFav;
+    self.restaurant.is_favorite = favoriteStatus;
+
+    if (favoriteStatus) {
+        document.getElementById("favorite-button").innerHTML = fav;
     } else {
-      currentText = fav;
+        document.getElementById("favorite-button").innerHTML = notFav;
     }
 
-    favButton.innerHTML = "is Favorite";
-    const id = self.restaurant.id;
-    console.log("selected Restaurant " + id + " as favorite");
 
 
   });

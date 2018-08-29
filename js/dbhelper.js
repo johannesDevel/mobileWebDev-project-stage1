@@ -375,6 +375,47 @@ class DBHelper {
       });
     }
 
+    static sendFavorite(restaurant) {
+        idb.open('restaurants-reviews').then(function(db) {
+            if (!db) return;
+            var tx = db.transaction('restaurants', 'readwrite');
+            var rest = tx.objectStore('restaurants');
+            rest.put(restaurant);
+          });
+        if (navigator.onLine) {
+            console.log("change favorite status on server");
+            if (restaurant.is_favorite) {
+            return fetch(DBHelper.DATABASE_URL +
+                    `restaurants/${restaurant.id}/?is_favorite=true`, {
+                method: "PUT", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, cors, *same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, same-origin, *omit
+                redirect: "follow", // manual, *follow, error
+                referrer: "no-referrer", // no-referrer, *client
+                })
+              .then(response => {
+                response.json();
+              }); // parses response to JSON
+            }
+            else {
+                return fetch(DBHelper.DATABASE_URL +
+                    `restaurants/${restaurant.id}/?is_favorite=false`, {
+                method: "PUT", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, cors, *same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, same-origin, *omit
+                redirect: "follow", // manual, *follow, error
+                referrer: "no-referrer", // no-referrer, *client
+                })
+              .then(response => {
+                response.json();
+              }); // parses response to JSON
+            }
+        }
+    }
+
+
 
     // static fetchReviewsById(restaurant_id, callback) {
     //   DBHelper.fetchReviews((error, reviews) => {
