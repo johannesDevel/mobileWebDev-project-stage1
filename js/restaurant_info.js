@@ -116,8 +116,8 @@ initMap = () => {
       fillRestaurantHoursHTML();
     }
 
-    console.log("restaurant favorite status: " + restaurant.is_favorite);
-    if (self.restaurant.is_favorite) {
+    console.log("restaurant favorite status: " + self.restaurant.is_favorite);
+    if (self.restaurant.is_favorite === 'true') {
         console.log("restaurant will be loaded as favorite");
         document.getElementById("favorite-button").innerHTML = fav;
     } else {
@@ -288,22 +288,21 @@ initMap = () => {
   }
 
   document.getElementById("favorite-button").addEventListener("click", function() {
+
     let favoriteStatus = self.restaurant.is_favorite;
-    console.log("favorite status before: " + favoriteStatus);
-    favoriteStatus = !favoriteStatus;
-    // DBHelper.sendFavorite(self.restaurant);
-    console.log("favorite status after: " + favoriteStatus);
+    console.log("favorite status before: " + self.restaurant.is_favorite);
 
-    self.restaurant.is_favorite = favoriteStatus;
-
-    if (favoriteStatus) {
-        document.getElementById("favorite-button").innerHTML = fav;
+    if (favoriteStatus === 'true') {
+      favoriteStatus = 'false';
+      document.getElementById("favorite-button").innerHTML = notFav;
     } else {
-        document.getElementById("favorite-button").innerHTML = notFav;
+      favoriteStatus = 'true';
+      document.getElementById("favorite-button").innerHTML = fav;
     }
 
-
-
+    self.restaurant.is_favorite = favoriteStatus;
+    DBHelper.sendFavorite(self.restaurant);
+    console.log("favorite status after: " + self.restaurant.is_favorite);
   });
 
 
@@ -313,6 +312,7 @@ initMap = () => {
 
       console.log('Status is now: ' + condition);
       if (condition === "online") {
+        DBHelper.sendOfflineRestaurants();
         DBHelper.sendOfflineReviews();
       }
     }

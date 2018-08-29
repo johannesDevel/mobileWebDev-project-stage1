@@ -362,7 +362,41 @@ class DBHelper {
             }); // parses response to JSON
           }
         });
-        DBHelper.deleteOfflineReviews();
+      });
+    }
+
+    static sendOfflineRestaurants() {
+      idb.open('restaurants-reviews').then(function (db) {
+        if (!db) return;
+        var tx = db.transaction('restaurants', 'readonly');
+        var rest = tx.objectStore('restaurants');
+        return rest.getAll();
+      }).then(function (response) {
+        return response;
+      }).then(function (offlineRestaurants) {
+        console.log('offline restaurants sending to server');
+        console.log(offlineRestaurants);
+        offlineRestaurants.forEach(restaurant => {
+          if (navigator.onLine) {
+            const id = restaurant.id;
+            return fetch(DBHelper.DATABASE_URL + `restaurants/${id}`, {
+              method: "PUT", // *GET, POST, PUT, DELETE, etc.
+              mode: "cors", // no-cors, cors, *same-origin
+              cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+              credentials: "same-origin", // include, same-origin, *omit
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                // "Content-Type": "application/x-www-form-urlencoded",
+              },
+              redirect: "follow", // manual, *follow, error
+              referrer: "no-referrer", // no-referrer, *client
+              body: JSON.stringify(restaurant), // body data type must match "Content-Type" header
+            })
+            .then(response => {
+              response.json();
+            }); // parses response to JSON
+          }
+        });
       });
     }
 
@@ -384,9 +418,9 @@ class DBHelper {
           });
         if (navigator.onLine) {
             console.log("change favorite status on server");
-            if (restaurant.is_favorite) {
+            const status = restaurant.is_favorite;
             return fetch(DBHelper.DATABASE_URL +
-                    `restaurants/${restaurant.id}/?is_favorite=true`, {
+                    `restaurants/${restaurant.id}/?is_favorite=${status}`, {
                 method: "PUT", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, cors, *same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -397,21 +431,6 @@ class DBHelper {
               .then(response => {
                 response.json();
               }); // parses response to JSON
-            }
-            else {
-                return fetch(DBHelper.DATABASE_URL +
-                    `restaurants/${restaurant.id}/?is_favorite=false`, {
-                method: "PUT", // *GET, POST, PUT, DELETE, etc.
-                mode: "cors", // no-cors, cors, *same-origin
-                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: "same-origin", // include, same-origin, *omit
-                redirect: "follow", // manual, *follow, error
-                referrer: "no-referrer", // no-referrer, *client
-                })
-              .then(response => {
-                response.json();
-              }); // parses response to JSON
-            }
         }
     }
 
