@@ -344,19 +344,23 @@ class DBHelper {
         offlineReviews.forEach(offlineReview => {
           if (navigator.onLine) {
 
-            // let id = offlineReview.restaurant_id;
-            // console.log('restaurant id: ' + id);
-            // const allReviews = fetch(DBHelper.DATABASE_URL + `reviews/?restaurant_id=${id}`)
-            // .then(response => {
-            //   return response.json();
-            // }).then(function(reviews) {
-            //   return reviews;
-            // });
-            //
-            // allReviews.then(function(reviews) {
-            //     console.log('###' + review.name + " -- " + offlineReview.name);
-            //     if (reviews.include) {
-                  // console.log('same name');
+            let id = offlineReview.restaurant_id;
+            console.log('restaurant id: ' + id);
+            const allReviews = fetch(DBHelper.DATABASE_URL + `reviews/?restaurant_id=${id}`)
+            .then(response => {
+              return response.json();
+            }).then(function(reviews) {
+
+              return reviews;
+            });
+
+            allReviews.then(function(reviews) {
+                function sameReview(element, index, array) {
+                    return element.name != offlineReview.name;
+                }
+
+                if (reviews.every(sameReview)) {
+                  console.log('not same name');
                   return fetch(DBHelper.DATABASE_URL + `reviews`, {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, cors, *same-origin
@@ -375,6 +379,9 @@ class DBHelper {
                   }); // parses response to JSON
                 }
               });
+            }
+
+        });
             });
     }
 
