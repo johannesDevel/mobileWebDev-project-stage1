@@ -243,6 +243,8 @@ class DBHelper {
             // console.log('offline reviews');
             // console.log(newReviews);
             return newReviews;
+          }).catch(error => {
+
           });
 
           // allReviews = allReviews.concat(DBHelper.array());
@@ -280,6 +282,9 @@ class DBHelper {
         var reviewsStore = upgradeDb.createObjectStore('reviews', {
           keyPath: 'id'
         });
+        var reviewsStore = upgradeDb.createObjectStore('new-reviews', {
+          keyPath: 'updatedAt'
+        });
       });
       idbPromise.then(function(db) {
         if (!db) return;
@@ -295,9 +300,7 @@ class DBHelper {
 
     static sendReviewsToServer(data = {}) {
       const idbPromise = idb.open('restaurants-reviews', 3, function(upgradeDb) {
-        var reviewsStore = upgradeDb.createObjectStore('new-reviews', {
-          keyPath: 'updatedAt'
-        });
+
       });
       idbPromise.then(function(db) {
         if (!db) return;
