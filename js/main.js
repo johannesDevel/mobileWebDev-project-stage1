@@ -215,9 +215,15 @@ createRestaurantHTML = (restaurant) => {
 window.addEventListener('load', function() {
   function updateOnlineStatus(event) {
     var condition = navigator.onLine ? "online" : "offline";
+    var indicator = document.getElementById("online-indicator");
 
     console.log('Status is now: ' + condition);
+    if (condition === "offline") {
+      alert("No network connection, newly created reviews will be stored and sent when online");
+    }
     if (condition === "online") {
+      alert("new created reviews will be sent to server");
+      DBHelper.sendOfflineRestaurants();
       DBHelper.sendOfflineReviews();
     }
   }

@@ -11,6 +11,10 @@ class DBHelper {
     const port = 1337 // Change this to your server port
     return `http://localhost:${port}/`;
   }
+
+  static array(newArray) {
+    return newArray
+  }
   /**
   * Fetch all restaurants.
   */
@@ -38,21 +42,6 @@ class DBHelper {
       })
     }
   }
-
-  // static get openDatabase() {
-  //   if (!navigator.serviceWorker) {
-  //     return Promise.resolve();
-  //   } else {
-  //     return idb.open('restaurants-reviews', 1, function(upgradeDb) {
-  //       upgradeDb.createObjectStore('restaurants', {
-  //         keyPath: 'id' });
-  //       upgradeDb.createObjectStore('reviews', {
-  //         keyPath: 'id' });
-  //       upgradeDb.createObjectStore('reviews', {
-  //         keyPath: 'updated' });
-  //     });
-  //   }
-  // }
 
   static fillDatabase(restaurants) {
     const idbPromise = idb.open('restaurants-reviews', 1, function(upgradeDb) {
@@ -242,29 +231,38 @@ class DBHelper {
         }).then(function (reviews) {
           let allReviews = reviews.filter(reviews => reviews.restaurant_id === id);
 
-          // const offlineReviews = idb.open('restaurants-reviews').then(function (db) {
-          //   if (!db) return;
-          //   var tx = db.transaction('new-reviews', 'readonly');
-          //   var rest = tx.objectStore('new-reviews');
-          //   return rest.getAll();
-          // }).then(function (response) {
-          //   return response;
-          // }).then(function (offlineReviews) {
-          //   const newReviews = offlineReviews.filter(offlineReviews => offlineReviews.restaurant_id === id);
-          //   return newReviews;
-          // });
-          //
-          // offlineReviews.then(function (offlineReviews) {
-          //   offReviews = offlineReviews;
-          // });
-          // console.log('offline reviews');
-          // console.log(offReviews);
-          console.log('online reviews: ');
-          console.log(allReviews);
-          callback(null, allReviews);
+          const offlineDBreviews = idb.open('restaurants-reviews').then(function (db) {
+            if (!db) return;
+            var tx = db.transaction('new-reviews', 'readonly');
+            var rest = tx.objectStore('new-reviews');
+            return rest.getAll();
+          }).then(function (response) {
+            return response;
+          }).then(function (offlineReviews) {
+            const newReviews = offlineReviews.filter(offlineReviews => offlineReviews.restaurant_id === id);
+            // console.log('offline reviews');
+            // console.log(newReviews);
+            return newReviews;
+          });
+
+          // allReviews = allReviews.concat(DBHelper.array());
+
+          offlineDBreviews.then(function(reviews) {
+            console.log("show offline reviews from db");
+            console.log(reviews);
+
+
+
+            allReviews = allReviews.concat(reviews);
+            console.log('online reviews: ');
+            console.log(allReviews);
+
+            callback(null, allReviews);
+          });
         });
       }
     }
+
 
     // static fetchAllReviews() {
     //   fetch(DBHelper.DATABASE_URL + `reviews/`)
@@ -324,7 +322,6 @@ class DBHelper {
           body: JSON.stringify(data), // body data type must match "Content-Type" header
         })
         .then(response => {
-          DBHelper.deleteOfflineReviews();
           response.json();
         }); // parses response to JSON
       }
@@ -341,28 +338,41 @@ class DBHelper {
       }).then(function (offlineReviews) {
         console.log('offline reviews sending to server');
         console.log(offlineReviews);
-        offlineReviews.forEach(review => {
+        offlineReviews.forEach(offlineReview => {
           if (navigator.onLine) {
-            return fetch(DBHelper.DATABASE_URL + `reviews`, {
-              method: "POST", // *GET, POST, PUT, DELETE, etc.
-              mode: "cors", // no-cors, cors, *same-origin
-              cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-              credentials: "same-origin", // include, same-origin, *omit
-              headers: {
-                "Content-Type": "application/json; charset=utf-8",
-                // "Content-Type": "application/x-www-form-urlencoded",
-              },
-              redirect: "follow", // manual, *follow, error
-              referrer: "no-referrer", // no-referrer, *client
-              body: JSON.stringify(review), // body data type must match "Content-Type" header
-            })
-            .then(response => {
-              DBHelper.deleteOfflineReviews();
-              response.json();
-            }); // parses response to JSON
-          }
-        });
-      });
+
+            // let id = offlineReview.restaurant_id;
+            // console.log('restaurant id: ' + id);
+            // const allReviews = fetch(DBHelper.DATABASE_URL + `reviews/?restaurant_id=${id}`)
+            // .then(response => {
+            //   return response.json();
+            // }).then(function(reviews) {
+            //   return reviews;
+            // });
+            //
+            // allReviews.then(function(reviews) {
+            //     console.log('###' + review.name + " -- " + offlineReview.name);
+            //     if (reviews.include) {
+                  // console.log('same name');
+                  return fetch(DBHelper.DATABASE_URL + `reviews`, {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, cors, *same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, same-origin, *omit
+                    headers: {
+                      "Content-Type": "application/json; charset=utf-8",
+                      // "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    redirect: "follow", // manual, *follow, error
+                    referrer: "no-referrer", // no-referrer, *client
+                    body: JSON.stringify(offlineReview), // body data type must match "Content-Type" header
+                  })
+                  .then(response => {
+                    response.json();
+                  }); // parses response to JSON
+                }
+              });
+            });
     }
 
     static sendOfflineRestaurants() {
@@ -410,54 +420,54 @@ class DBHelper {
     }
 
     static sendFavorite(restaurant) {
-        idb.open('restaurants-reviews').then(function(db) {
-            if (!db) return;
-            var tx = db.transaction('restaurants', 'readwrite');
-            var rest = tx.objectStore('restaurants');
-            rest.put(restaurant);
-          });
-        if (navigator.onLine) {
-            console.log("change favorite status on server");
-            const status = restaurant.is_favorite;
-            return fetch(DBHelper.DATABASE_URL +
-                    `restaurants/${restaurant.id}/?is_favorite=${status}`, {
-                method: "PUT", // *GET, POST, PUT, DELETE, etc.
-                mode: "cors", // no-cors, cors, *same-origin
-                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: "same-origin", // include, same-origin, *omit
-                redirect: "follow", // manual, *follow, error
-                referrer: "no-referrer", // no-referrer, *client
-                })
-              .then(response => {
-                response.json();
-              }); // parses response to JSON
+      idb.open('restaurants-reviews').then(function(db) {
+        if (!db) return;
+        var tx = db.transaction('restaurants', 'readwrite');
+        var rest = tx.objectStore('restaurants');
+        rest.put(restaurant);
+      });
+      if (navigator.onLine) {
+        console.log("change favorite status on server");
+        const status = restaurant.is_favorite;
+        return fetch(DBHelper.DATABASE_URL +
+          `restaurants/${restaurant.id}/?is_favorite=${status}`, {
+            method: "PUT", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, same-origin, *omit
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+          })
+          .then(response => {
+            response.json();
+          }); // parses response to JSON
         }
+      }
+
+
+
+      // static fetchReviewsById(restaurant_id, callback) {
+      //   DBHelper.fetchReviews((error, reviews) => {
+      //     if (error) {
+      //       callback(error, null);
+      //     } else {
+      //       const reviewsForId = reviews.find(r => r.restaurant_id == restaurant_id);
+      //       if (reviewsForId) {
+      //         callback(null, reviewsForId);
+      //       } else {
+      //         callback('Reviews do not exist', null);
+      //       }
+      //     }
+      //   });
+      // }
+      //
+      // static fetchReviews(callback) {
+      //   fetch('http://localhost:1337/reviews')
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       const reviews = data;
+      //       callback(null, reviews)
+      //     });
+      // }
+
     }
-
-
-
-    // static fetchReviewsById(restaurant_id, callback) {
-    //   DBHelper.fetchReviews((error, reviews) => {
-    //     if (error) {
-    //       callback(error, null);
-    //     } else {
-    //       const reviewsForId = reviews.find(r => r.restaurant_id == restaurant_id);
-    //       if (reviewsForId) {
-    //         callback(null, reviewsForId);
-    //       } else {
-    //         callback('Reviews do not exist', null);
-    //       }
-    //     }
-    //   });
-    // }
-    //
-    // static fetchReviews(callback) {
-    //   fetch('http://localhost:1337/reviews')
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       const reviews = data;
-    //       callback(null, reviews)
-    //     });
-    // }
-
-  }
