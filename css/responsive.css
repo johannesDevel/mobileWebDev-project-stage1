@@ -10,24 +10,17 @@
   }
 
   .filter-options {
-    height: 110px;
+    padding: 10px;
     text-align: left;
   }
   .filter-options h2 {
-    background-color:  #3397DB;
-    color: white;
     font-size: 1.4em;
-    font-weight: normal;
-    line-height: 1;
+    margin-bottom: 5px;
   }
 
   .filter-options select {
-    background-color: white;
-    color: black;
-    border: 1px solid #fff;
-    font-family: Arial,sans-serif;
-    font-size: 1.2em;
-    height: 40px;
+    /* margin-right: 10px; */
+    margin-top: 5px;
     margin-right: 10px;
     width: 240px;
   }
@@ -65,7 +58,6 @@
 
   #restaurant-img {
     width: 50%;
-    margin-bottom: 15px;
   }
 
   #restaurant-container {
@@ -82,8 +74,8 @@
 
   #restaurant-hours-address {
     font-size: 1.1em;
-    margin-left: 5%;
-    margin-bottom: 20px;
+    margin-left: 3%;
+    /* margin-bottom: 10px; */
     order: 0;
     width: 40%;
   }
@@ -95,6 +87,25 @@
   #restaurant-cuisine {
     order: 1;
   }
+}
+
+/* minor breakpoint for the flow of the filter */
+@media screen and (min-width: 660px) {
+  .filter-options {
+    /* padding: 15px */
+    height: auto;
+    padding: 10px;
+  }
+  .filter-options h2 {
+    display: inline;
+  }
+
+  .filter-options select {
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 15px;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -119,7 +130,12 @@
   }
 
   #breadcrumb {
-    width: 50%;
+    width: 53%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  #breadcrumb li a {
+  	margin-left: 10px;
   }
 
   #restaurants-list li img {
@@ -137,7 +153,8 @@
 
   /* footer on the restaurant page */
   .restaurant {
-    width: 50%;
+    margin: 0;
+    width: 53%;
   }
   body {
     background-color: #f3f3f3;
