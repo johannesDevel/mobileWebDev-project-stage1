@@ -1,10 +1,10 @@
 @media screen and (min-width: 550px) {
 
-  nav {
+  #banner {
     height: 70px;
   }
 
-  nav h1 a {
+  #banner h1 a {
     font-size: 1.2em;
     letter-spacing: 10px;
   }

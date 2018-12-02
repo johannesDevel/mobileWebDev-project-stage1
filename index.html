@@ -13,7 +13,7 @@
 <body>
   <header>
     <a href="#restaurants-list" class="skip-link">Skip to Restaurants</a>
-    <nav>
+    <nav id="banner">
       <h1 role="banner"><a href="/">Restaurant Reviews</a></h1>
     </nav>
   </header>
@@ -25,10 +25,10 @@
     <section>
       <div class="filter-options" tabindex="-1">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" tabindex="0" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" aria-label="select neighborhoods" name="neighborhoods" tabindex="0" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" tabindex="0" onchange="updateRestaurants()">
+        <select id="cuisines-select" aria-label="select cuisines" name="cuisines" tabindex="0" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
